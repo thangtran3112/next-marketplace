@@ -44,3 +44,8 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 - Important note: You should not have any `users` document in your database, in order to be redirected to `http://localhost:3000/sell/create-first-user`. [See more here](https://payloadcms.com/community-help/discord/i-cant-sign-up-as-admin)
 
 ![Payload Collections on MongoDB](./images/MongoPayloadCollections.png)
+
+## Zod Validation with react-hook-form
+
+- [Use Zod validation schema for both client-side and server-side](./src/lib/validators/account-credentials-validator.ts)
+- Integrate Zod validators with `@hookform/resolvers/zod`. [See here](<./src/app/(auth)/sign-up/page.tsx>)
