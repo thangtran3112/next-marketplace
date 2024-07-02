@@ -1,6 +1,9 @@
 import express from "express";
 import { getPayloadClient } from "./get-payload";
 import { nextApp, nextHandler } from "./next-utils";
+import * as trpcExpress from "@trpc/server/adapters/express";
+import { appRouter } from "./trpc";
+import { TRPC_ENDPOINT } from "./constants";
 
 /**
  * Using Express as NextJs middleware (custom server)
@@ -9,6 +12,14 @@ import { nextApp, nextHandler } from "./next-utils";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
+
+const createContext = ({
+  req,
+  res,
+}: trpcExpress.CreateExpressContextOptions) => ({
+  req,
+  res,
+});
 
 const start = async () => {
   const payload = await getPayloadClient({
@@ -20,7 +31,22 @@ const start = async () => {
     },
   });
 
-  //forward all express requests and responses to nextjs handler
+  /**
+   * when we receive a request to /api/trpc, we want to forward it to our trpc in NextJS
+   * Use createContext to attach Express's request and response as context to forward to NextJS
+   */
+  app.use(
+    TRPC_ENDPOINT,
+    trpcExpress.createExpressMiddleware({
+      router: appRouter,
+      createContext,
+    })
+  );
+
+  /*
+   * Forward all express requests and responses to nextjs handler.
+   * Any requests not handled by Express will be forwarded to be handled by NextJS
+   */
   app.use((req, res) => nextHandler(req, res));
 
   //prepare() — resolves after NextJS successful instantiation.
