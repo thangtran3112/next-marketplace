@@ -29,6 +29,10 @@
 }
 ```
 
+- Express will be the first point-of-entry for both rendering and TRPC api requests.
+
+![Express Frontier Server](./images/ExpressAsFrontServerForNextJS.png)
+
 ## Payload Configuration (MongoDB, alternative: Postgres)
 
 - Create `payload.config.ts` and export a default config.
@@ -49,3 +53,16 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 
 - [Use Zod validation schema for both client-side and server-side](./src/lib/validators/account-credentials-validator.ts)
 - Integrate Zod validators with `@hookform/resolvers/zod`. [See here](<./src/app/(auth)/sign-up/page.tsx>)
+
+## TRPC and tanstack/react-query
+
+- Provides both FE and BE typesafe APIs with `@trpc/server` and `@trpc/client`. [See here](./src/trpc/index.ts)
+- Create a Providers wrapper component, which will provide the `trpc` context to your app. [Providers](./src/components/Providers.tsx) and [Providers in layout.tsx](./src/app/layout.tsx)
+
+```tsx
+<trpc.Provider client={trpcClient} queryClient={queryClient}>
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+</trpc.Provider>
+```
+
+- At this point of time, TRPC v11 is still in beta, and TRPC v10 can only support tanstack/react-query v4.36.1. [See here](https://trpc.io/docs/migrate-from-v10-to-v11)
