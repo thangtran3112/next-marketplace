@@ -66,3 +66,8 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 ```
 
 - At this point of time, TRPC v11 is still in beta, and TRPC v10 can only support tanstack/react-query v4.36.1. [See here](https://trpc.io/docs/migrate-from-v10-to-v11)
+
+## MongoDB Collections
+
+- For users collection, we have 3 types of users: `admin`, `buyer` and `seller`. [See here](./src/collections/users.ts)
+- Plug the users collection in your payload config. [See here](./src/payload.config.ts)
