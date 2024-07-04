@@ -1,3 +1,4 @@
+import { QueryParamKeys } from "../constants";
 import { CollectionConfig } from "payload/types";
 
 export const Users: CollectionConfig = {
@@ -5,7 +6,7 @@ export const Users: CollectionConfig = {
   auth: {
     verify: {
       generateEmailHTML: ({ token }) => {
-        return `<p>Hello. Please verify your email.</p>`;
+        return `<a href='${process.env.NEXT_PUBLIC_SERVER_URL}/verify-email?${QueryParamKeys.Token}=${token}'>Verify your account</a>`;
       },
     },
   },

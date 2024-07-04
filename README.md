@@ -78,3 +78,4 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 - Alternatives are AWS SES, Google Mail (500 emails limit), Mailchimp. Make sure to use the email providers, which our confirmation emails would not be landed in Spam folder.
 - Note: we must add DNS records to prove our domain, so resend can work. [See here](https://resend.com/docs/adding-dns-records)
   ![Resend DNS Records](./images/ResendDNSRecords.png)
+  ![Sign up flows](./images/SignUpFlows.png)
