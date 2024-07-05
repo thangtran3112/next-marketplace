@@ -4,6 +4,7 @@ import { nextApp, nextHandler } from "./next-utils";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { appRouter } from "./trpc";
 import { TRPC_ENDPOINT } from "./constants";
+import { inferAsyncReturnType } from "@trpc/server";
 
 /**
  * Using Express as NextJs middleware (custom server)
@@ -21,6 +22,8 @@ const createContext = ({
   res,
 });
 
+export type ExpressContext = inferAsyncReturnType<typeof createContext>;
+
 const start = async () => {
   const payload = await getPayloadClient({
     initOptions: {
@@ -34,12 +37,13 @@ const start = async () => {
   /**
    * when we receive a request to /api/trpc, we want to forward it to our trpc in NextJS
    * Use createContext to attach Express's request and response as context to forward to NextJS
+   * Send appRouter (auth_router with sign-in, sign-up and verify-email) to NextJS
    */
   app.use(
     TRPC_ENDPOINT,
     trpcExpress.createExpressMiddleware({
-      router: appRouter,
-      createContext,
+      router: appRouter, //send to NextJS
+      createContext, //send to NextJS
     })
   );
 
