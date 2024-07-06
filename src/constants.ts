@@ -6,3 +6,7 @@ export const QueryParamKeys = {
   As: "as",
   Origin: "origin",
 };
+
+export const UsersCollection = "users";
+export const ProductsCollection = "products";
+export const ProductFilesCollection = "product_files";

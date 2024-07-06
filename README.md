@@ -1,9 +1,8 @@
 # Digital marketplace Techstacks:
 
-- Next14, Tailwind
-- [Shadcn UI](https://ui.shadcn.com/)
-- [Lucide for icons](https://lucide.dev/icons/): `npm i lucide-react --save`
-- TRPC, and Payload CMS
+- Fullstack approach, with combined BE and FE, with entry through ExpressJS
+- Next14, Tailwind, [Shadcn UI](https://ui.shadcn.com/),[Lucide react](https://lucide.dev/icons/)
+- TRPC, Payload CMS, MongoDB
 
 ## Getting Started
 
@@ -56,6 +55,7 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 
 ## TRPC and tanstack/react-query
 
+- Important: Whenever a new collection is created, make sure to add it in `payload.config.ts` and also run `npm run generate:types`
 - Provides both FE and BE typesafe APIs with `@trpc/server` and `@trpc/client`. [See here](./src/trpc/index.ts)
 - Create a Providers wrapper component, which will provide the `trpc` context to your app. [Providers](./src/components/Providers.tsx) and [Providers in layout.tsx](./src/app/layout.tsx)
 
@@ -79,3 +79,7 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 - Note: we must add DNS records to prove our domain, so resend can work. [See here](https://resend.com/docs/adding-dns-records)
   ![Resend DNS Records](./images/ResendDNSRecords.png)
   ![Sign up flows](./images/SignUpFlows.png)
+
+## Application Architecture
+
+- ![Payload Application Architecture](./images/PayloadArchitecture.png)
