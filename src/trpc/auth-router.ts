@@ -3,6 +3,7 @@ import { publicProcedure, router } from "./trpc";
 import { getPayloadClient } from "../get-payload";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { UsersCollection } from "../constants";
 
 export const authRouter = router({
   createPayloadUser: publicProcedure
@@ -13,7 +14,7 @@ export const authRouter = router({
 
       // check if user already exists
       const { docs: users } = await payload.find({
-        collection: "users",
+        collection: UsersCollection,
         where: {
           email: {
             equals: email,
@@ -24,7 +25,7 @@ export const authRouter = router({
       if (users.length !== 0) throw new TRPCError({ code: "CONFLICT" });
 
       await payload.create({
-        collection: "users",
+        collection: UsersCollection,
         data: {
           email,
           password,
@@ -40,7 +41,7 @@ export const authRouter = router({
       const { token } = input;
       const payload = await getPayloadClient();
       const isVerified = await payload.verifyEmail({
-        collection: "users",
+        collection: UsersCollection,
         token,
       });
 
@@ -59,7 +60,7 @@ export const authRouter = router({
       try {
         //Login, if successful, cookie will be set to res object
         await payload.login({
-          collection: "users",
+          collection: UsersCollection,
           data: {
             email,
             password,
