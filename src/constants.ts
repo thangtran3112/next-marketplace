@@ -10,3 +10,4 @@ export const QueryParamKeys = {
 export const UsersCollection = "users";
 export const ProductsCollection = "products";
 export const ProductFilesCollection = "product_files";
+export const OrdersCollection = "orders";
