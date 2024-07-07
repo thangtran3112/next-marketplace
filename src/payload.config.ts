@@ -9,6 +9,7 @@ import { UsersCollection } from "./constants";
 import { Products } from "./collections/Products/Products";
 import { Media } from "./collections/Media";
 import { ProductFiles } from "./collections/ProductFile";
+import { Orders } from "./collections/Orders";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env"),
@@ -16,7 +17,7 @@ dotenv.config({
 
 export default buildConfig({
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || "",
-  collections: [Users, Products, Media, ProductFiles],
+  collections: [Users, Products, Media, ProductFiles, Orders],
   routes: {
     admin: "/sell",
   },
@@ -24,7 +25,7 @@ export default buildConfig({
     user: UsersCollection, //use existing users collection, if exists
     bundler: webpackBundler(),
     meta: {
-      titleSuffix: "- DigitalHippo",
+      titleSuffix: "- Next Marketplace",
       favicon: "/favicon.ico",
       ogImage: "/thumbnail.jpg", //when you share a link to this application
     },

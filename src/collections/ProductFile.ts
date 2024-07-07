@@ -1,4 +1,5 @@
 import {
+  OrdersCollection,
   ProductFilesCollection,
   ProductsCollection,
   UsersCollection,
@@ -22,7 +23,7 @@ const yourOwnAndPurchased: Access = async ({ req }) => {
   const { docs: products } = await req.payload.find({
     collection: ProductsCollection,
     //do not include entire user attached to product (if depth is 1)
-    depth: 0,
+    depth: 0, // with depth = 0, this would return only the Product ID
     where: {
       user: {
         equals: user.id,
@@ -30,9 +31,44 @@ const yourOwnAndPurchased: Access = async ({ req }) => {
     },
   });
 
+  //With depth = 0, we know the query only return the Product ID, but TypeScript doesn't know that
+  //By using flat() we convert the array of Product IDs into an array of Product objects
   const ownProductFileIds = products.map((prod) => prod.product_files).flat();
 
-  return true;
+  const { docs: orders } = await req.payload.find({
+    collection: OrdersCollection,
+    depth: 2, // with depth = 2, this order should have the entire Product objects
+    where: {
+      user: {
+        equals: user.id,
+      },
+    },
+  });
+
+  //list of products purchased by this user
+  const purchasedProductFileIds = orders
+    .map((order) => {
+      return order.products.map((product) => {
+        if (typeof product === "string")
+          //we do not get the whole Product object, but productId only
+          return req.payload.logger.error(
+            "Search depth not sufficient to find purchased file IDs"
+          ); // with this search depth, we only get the Product ID, not the ProductFiles in it
+
+        // if we get here, we actually get the ProductFile Id, which is inside Product Object
+        return typeof product.product_files === "string"
+          ? product.product_files
+          : product.product_files.id;
+      });
+    })
+    .filter(Boolean) //take out all falsy values out of array
+    .flat();
+
+  return {
+    id: {
+      in: [...ownProductFileIds, ...purchasedProductFileIds],
+    },
+  };
 };
 
 export const ProductFiles: CollectionConfig = {
