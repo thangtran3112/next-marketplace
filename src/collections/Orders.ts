@@ -1,4 +1,4 @@
-import { ProductsCollection, UsersCollection } from "@/constants";
+import { ProductsCollection, UsersCollection } from "../constants";
 import { Access, CollectionConfig } from "payload/types";
 
 const yourOwnOrders: Access = ({ req: { user } }) => {

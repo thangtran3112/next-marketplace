@@ -38,3 +38,6 @@ next-env.d.ts
 /.open-next/
 .env
 .env.local
+
+/src/media
+/src/product_files
