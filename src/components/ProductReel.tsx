@@ -70,6 +70,7 @@ const ProductReel = (props: ProductReelProps) => {
           <div className="w-full grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-10 lg:gap-x-8">
             {productsMap.map((product, i) => (
               <ProductListing
+                // Do not use product.id as key, Skeleton map above does not have products.id
                 key={`product-${i}`}
                 product={product}
                 index={i}
