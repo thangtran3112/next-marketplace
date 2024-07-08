@@ -50,7 +50,7 @@ export const paymentRouter = router({
       });
 
       line_items.push({
-        price: "price_1Pa7h6Rqj3bA4yOPv1xQQseA", //our Transaction Fee PriceId
+        price: process.env.TRANSACTION_FEE_PRICE_ID, //our Transaction Fee PriceId
         quantity: 1,
         adjustable_quantity: {
           enabled: false,
