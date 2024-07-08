@@ -83,3 +83,10 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 ## Application Architecture
 
 - ![Payload Application Architecture](./images/PayloadArchitecture.png)
+- ![Checkout Flow with Stripe hosted url](./images/CheckoutFlow.png)
+
+## Stripe Checkout
+
+- Go to Stripe account, activate Test Mode, and select Developers tab.
+- ![Create Transaction Fee Line Item](./images/StripeLineItemForTransactionFee.png)
+- ![Get Line Item PriceId for Transaction Fee](./images/TransactionFeePriceId.png)

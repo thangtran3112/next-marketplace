@@ -1,6 +1,18 @@
+import { Product } from "../../payload-types";
 import { PRODUCT_CATEGORIES } from "../../config";
 import { ProductFilesCollection, UsersCollection } from "../../constants";
 import { CollectionConfig } from "payload/types";
+import {
+  AfterChangeHook,
+  BeforeChangeHook,
+} from "payload/dist/collections/config/types";
+import { stripe } from "../../lib/stripe";
+
+const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
+  const user = req.user;
+
+  return { ...data, user: user.id };
+};
 
 export const Products: CollectionConfig = {
   slug: "products",
@@ -8,6 +20,51 @@ export const Products: CollectionConfig = {
     useAsTitle: "name",
   },
   access: {},
+  hooks: {
+    beforeChange: [
+      addUser,
+      //create or update product, Stripe priceId for the product in Stripe dashboard
+      async (args) => {
+        //creating a new product
+        if (args.operation === "create") {
+          const data = args.data as Product;
+
+          const createdProduct = await stripe.products.create({
+            name: data.name,
+            default_price_data: {
+              currency: "USD",
+              unit_amount: Math.round(data.price * 100), //convert price to cents (not dollars)
+            },
+          });
+
+          //attached stripeId and priceId, that we retrieve from Stripe to the product
+          const updated: Product = {
+            ...data,
+            stripeId: createdProduct.id,
+            priceId: createdProduct.default_price as string,
+          };
+
+          return updated;
+        } else if (args.operation === "update") {
+          //updating an existing product
+          const data = args.data as Product;
+
+          const updatedProduct = await stripe.products.update(data.stripeId!, {
+            name: data.name,
+            default_price: data.priceId!,
+          });
+
+          const updated: Product = {
+            ...data,
+            stripeId: updatedProduct.id,
+            priceId: updatedProduct.default_price as string,
+          };
+
+          return updated;
+        }
+      },
+    ],
+  },
   fields: [
     {
       name: "user",
