@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { PRODUCT_CATEGORIES } from "@/config";
 import { useCart } from "@/hooks/use-cart";
 import { cn, formatPrice } from "@/lib/utils";
-import { Check, X } from "lucide-react";
+import { Check, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,6 +19,13 @@ const Page = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const cartTotal = items.reduce(
+    (total, { product }) => total + product.price,
+    0
+  );
+
+  const fee = 1;
 
   return (
     <div className="bg-white">
@@ -134,6 +141,66 @@ const Page = () => {
                 })}
             </ul>
           </div>
+
+          <section className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
+            <h2 className="text-lg font-medium text-gray-900">Order summary</h2>
+
+            <div className="mt-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-gray-600">Subtotal</p>
+                <p className="text-sm font-medium text-gray-900">
+                  {isMounted ? (
+                    formatPrice(cartTotal)
+                  ) : (
+                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                  )}
+                </p>
+              </div>
+
+              {/* border-t with gray color, similar to a divider. Alternative, use divide-y */}
+              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <span>Flat Transaction Fee</span>
+                </div>
+                <div className="text-sm font-medium text-gray-900">
+                  {isMounted ? (
+                    formatPrice(fee)
+                  ) : (
+                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                  )}
+                </div>
+              </div>
+
+              {/* border-t with gray color, similar to a divider. Alternative, use divide-y */}
+              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                <div className="text-base font-medium text-gray-900">
+                  Order Total
+                </div>
+                <div className="text-base font-medium text-gray-900">
+                  {isMounted ? (
+                    formatPrice(cartTotal + fee)
+                  ) : (
+                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Checkout Button */}
+            {/* <div className="mt-6">
+              <Button
+                disabled={items.length === 0 || isLoading}
+                onClick={() => createCheckoutSession({ productIds })}
+                className="w-full"
+                size="lg"
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin mr-1.5" />
+                ) : null}
+                Checkout
+              </Button>
+            </div> */}
+          </section>
         </div>
       </div>
     </div>
