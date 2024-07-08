@@ -1,4 +1,8 @@
-import { ProductsCollection, UsersCollection } from "../constants";
+import {
+  OrdersCollection,
+  ProductsCollection,
+  UsersCollection,
+} from "../constants";
 import { Access, CollectionConfig } from "payload/types";
 
 const yourOwnOrders: Access = ({ req: { user } }) => {
@@ -12,7 +16,7 @@ const yourOwnOrders: Access = ({ req: { user } }) => {
 };
 
 export const Orders: CollectionConfig = {
-  slug: "orders",
+  slug: OrdersCollection,
   admin: {
     useAsTitle: "Your Orders",
     description: "A summary of all your orders on Next Marketplace.",
