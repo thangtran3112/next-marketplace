@@ -88,5 +88,8 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 ## Stripe Checkout
 
 - Go to Stripe account, activate Test Mode, and select Developers tab.
+- Use this credit card number for testing: 4242 4242 4242 4242. Other details can be anything.
 - ![Create Transaction Fee Line Item](./images/StripeLineItemForTransactionFee.png)
 - ![Get Line Item PriceId for Transaction Fee](./images/TransactionFeePriceId.png)
+- We will keep polling /thank-you page until order is set with `isPaid` = true.
+- ![Stripe Checkout With webhook](./images/PollingForPaymentConfirmation.png)
