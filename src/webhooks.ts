@@ -5,6 +5,7 @@ import Stripe from "stripe";
 import { getPayloadClient } from "./get-payload";
 import { Product, User } from "./payload-types";
 import { Resend } from "resend";
+import { ReceiptEmailHtml } from "./components/emails/ReceiptEmail";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -87,13 +88,12 @@ export const stripeWebhookHandler = async (
         from: "NextMarketplace <hello@thangtrandev.net",
         to: [user.email],
         subject: "Thanks for your order! This is your receipt.",
-        text: "Thanks for your order! This is your receipt.",
-        // html: ReceiptEmailHtml({
-        //   date: new Date(),
-        //   email: user.email,
-        //   orderId: session.metadata.orderId,
-        //   products: order.products as Product[],
-        // }),
+        html: ReceiptEmailHtml({
+          date: new Date(),
+          email: user.email,
+          orderId: session.metadata.orderId,
+          products: order.products as Product[],
+        }),
       });
       res.status(200).json({ data });
     } catch (error) {

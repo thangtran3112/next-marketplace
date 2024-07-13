@@ -7,6 +7,9 @@ import { TRPC_ENDPOINT } from "./constants";
 import { inferAsyncReturnType } from "@trpc/server";
 import bodyParser from "body-parser";
 import { IncomingMessage } from "http";
+import { stripeWebhookHandler } from "./webhooks";
+import nextBuild from "next/dist/build";
+import path from "path";
 
 /**
  * Using Express as NextJs middleware (custom server)
@@ -45,6 +48,19 @@ const start = async () => {
       },
     },
   });
+
+  if (process.env.NEXT_BUILD) {
+    app.listen(PORT, async () => {
+      payload.logger.info("Next.js is building for production");
+
+      // @ts-expect-error
+      await nextBuild(path.join(__dirname, "../"));
+
+      process.exit();
+    });
+
+    return;
+  }
 
   /**
    * when we receive a request to /api/trpc, we want to forward it to our trpc in NextJS
