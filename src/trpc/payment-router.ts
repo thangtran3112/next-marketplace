@@ -5,6 +5,7 @@ import { getPayloadClient } from "../get-payload";
 import { stripe } from "../lib/stripe";
 import type Stripe from "stripe";
 import { OrdersCollection, ProductsCollection } from "../constants";
+import { Product } from "@/payload-types";
 
 export const paymentRouter = router({
   createSession: privateProcedure
@@ -29,7 +30,9 @@ export const paymentRouter = router({
       });
 
       // products must have a priceId, cannot be a draft product
-      const filteredProducts = products.filter((prod) => Boolean(prod.priceId));
+      const filteredProducts = products.filter((prod) =>
+        Boolean(prod.priceId)
+      ) as unknown as Product[];
 
       const order = await payload.create({
         collection: OrdersCollection,
