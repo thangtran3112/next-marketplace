@@ -93,3 +93,17 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 - ![Get Line Item PriceId for Transaction Fee](./images/TransactionFeePriceId.png)
 - We will keep polling /thank-you page until order is set with `isPaid` = true.
 - ![Stripe Checkout With webhook](./images/PollingForPaymentConfirmation.png)
+
+## Email templates
+
+- [@react-email/components](https://www.npmjs.com/package/@react-email/components)
+- [React Email templates](https://react.email/examples) with responsive design here.
+- [Apple Email Receipt Example](https://demo.react.email/preview/receipts/apple-receipt)
+- Using `@react-email/components`, we can render our email templates in React into a React component.
+
+```tsx
+export const ReceiptEmailHtml = (props: ReceiptEmailProps) =>
+  render(<ReceiptEmail {...props} />, {
+    pretty: true,
+  });
+```

@@ -41,3 +41,6 @@ next-env.d.ts
 
 /src/media
 /src/product_files
+
+/dist/
+/build/

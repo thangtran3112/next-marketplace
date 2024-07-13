@@ -6,6 +6,7 @@ import { PRODUCT_CATEGORIES } from "@/config";
 import { ProductsCollection } from "@/constants";
 import { getPayloadClient } from "@/get-payload";
 import { formatPrice } from "@/lib/utils";
+import { Product } from "@/payload-types";
 import { Check, Shield } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -37,7 +38,7 @@ const Page = async ({ params }: PageProps) => {
     },
   });
 
-  const [product] = products;
+  const [product] = products as unknown as Product[];
 
   if (!product) return notFound();
 
