@@ -5,6 +5,8 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 import { appRouter } from "./trpc";
 import { TRPC_ENDPOINT } from "./constants";
 import { inferAsyncReturnType } from "@trpc/server";
+import bodyParser from "body-parser";
+import { IncomingMessage } from "http";
 
 /**
  * Using Express as NextJs middleware (custom server)
@@ -23,8 +25,18 @@ const createContext = ({
 });
 
 export type ExpressContext = inferAsyncReturnType<typeof createContext>;
+export type WebhookRequest = IncomingMessage & { rawBody: Buffer };
 
 const start = async () => {
+  //parsing webhook requests, and we will eventually validate the signature, to make sure the request came from Stripe
+  const webhookMiddleware = bodyParser.json({
+    verify: (req: WebhookRequest, _res, buffer) => {
+      req.rawBody = buffer;
+    },
+  });
+
+  app.post("/api/webhooks/stripe", webhookMiddleware, stripeWebhookHandler);
+
   const payload = await getPayloadClient({
     initOptions: {
       express: app,
