@@ -107,3 +107,9 @@ export const ReceiptEmailHtml = (props: ReceiptEmailProps) =>
     pretty: true,
   });
 ```
+
+## Deployments
+
+- [Using railway app](https://railway.app/)
+- [With AWS CodePipeline, CodeBuild, Elastic Beanstalk and EC2](./AWS-EC2-Deployment.md)
+- With AWS ECS or EKS Container.
