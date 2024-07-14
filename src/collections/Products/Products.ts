@@ -1,7 +1,7 @@
-import { Product } from "../../payload-types";
+import { Product, User } from "../../payload-types";
 import { PRODUCT_CATEGORIES } from "../../config";
 import { ProductFilesCollection, UsersCollection } from "../../constants";
-import { CollectionConfig } from "payload/types";
+import { Access, CollectionConfig } from "payload/types";
 import {
   AfterChangeHook,
   BeforeChangeHook,
@@ -14,13 +14,81 @@ const addUser: BeforeChangeHook<Product> = async ({ req, data }) => {
   return { ...data, user: user.id };
 };
 
+const isAdminOrHasAccess =
+  (): Access =>
+  ({ req: { user: _user } }) => {
+    const user = _user as User | undefined;
+
+    if (!user) return false;
+    if (user.role === "admin") return true;
+
+    const userProductIDs = (user.products || []).reduce<Array<string>>(
+      (acc, product) => {
+        if (!product) return acc;
+        if (typeof product === "string") {
+          acc.push(product);
+        } else {
+          acc.push(product.id);
+        }
+
+        return acc;
+      },
+      []
+    );
+
+    return {
+      id: {
+        in: userProductIDs,
+      },
+    };
+  };
+
+const syncUser: AfterChangeHook<Product> = async ({ req, doc }) => {
+  const fullUser = await req.payload.findByID({
+    collection: UsersCollection,
+    id: req.user.id,
+  });
+
+  if (fullUser && typeof fullUser === "object") {
+    const { products } = fullUser;
+
+    //this will also contain the products, we created previously
+    const allProductIds = [
+      ...(products?.map((product) =>
+        typeof product === "object" ? product.id : product
+      ) || []),
+    ];
+
+    //find products that we just created previously
+    const createdProductIds = allProductIds.filter(
+      (id, index) => allProductIds.indexOf(id) === index
+    );
+
+    //add the new product id to the user list of productIds
+    const dataToUpdate = [...createdProductIds, doc.id];
+
+    await req.payload.update({
+      collection: UsersCollection,
+      id: fullUser.id,
+      data: {
+        products: dataToUpdate,
+      },
+    });
+  }
+};
+
 export const Products: CollectionConfig = {
   slug: "products",
   admin: {
     useAsTitle: "name",
   },
-  access: {},
+  access: {
+    read: isAdminOrHasAccess(),
+    update: isAdminOrHasAccess(),
+    delete: isAdminOrHasAccess(),
+  },
   hooks: {
+    afterChange: [syncUser],
     beforeChange: [
       addUser,
       //create or update product, Stripe priceId for the product in Stripe dashboard
