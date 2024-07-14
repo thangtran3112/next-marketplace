@@ -10,6 +10,8 @@ import { IncomingMessage } from "http";
 import { stripeWebhookHandler } from "./webhooks";
 import nextBuild from "next/dist/build";
 import path from "path";
+import { PayloadRequest } from "payload/types";
+import { parse } from "url";
 
 /**
  * Using Express as NextJs middleware (custom server)
@@ -48,6 +50,25 @@ const start = async () => {
       },
     },
   });
+
+  const cartRouter = express.Router();
+  // attach user object to request, and protect the route
+  cartRouter.use(payload.authenticate);
+
+  //root of cart route
+  cartRouter.get("/", (req, res) => {
+    const request = req as PayloadRequest;
+
+    if (!request.user) return res.redirect("/sign-in?origin=cart");
+
+    const parsedUrl = parse(req.url, true);
+    const { query } = parsedUrl;
+
+    //user is authenticated, so we tell nextjs to render the cart page
+    return nextApp.render(req, res, "/cart", query);
+  });
+
+  app.use("/cart", cartRouter);
 
   if (process.env.NEXT_BUILD) {
     app.listen(PORT, async () => {
