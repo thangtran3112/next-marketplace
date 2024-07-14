@@ -93,6 +93,8 @@ npm i @payloadcms/richtext-slate @payloadcms/bundler-webpack @payloadcms
 - ![Get Line Item PriceId for Transaction Fee](./images/TransactionFeePriceId.png)
 - We will keep polling /thank-you page until order is set with `isPaid` = true.
 - ![Stripe Checkout With webhook](./images/PollingForPaymentConfirmation.png)
+- Create Stripe webhook in Stripe dashboard, under Developer mode. Update environment variable `STRIPE_WEBHOOK_SECRET`.
+- ![Stripe Checkout With webhook](./images/AddStripeWebhookEndpoint.png)
 
 ## Email templates
 
