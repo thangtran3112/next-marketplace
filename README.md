@@ -115,3 +115,5 @@ export const ReceiptEmailHtml = (props: ReceiptEmailProps) =>
 - [Using railway app](https://railway.app/)
 - [With AWS CodePipeline, CodeBuild, Elastic Beanstalk and EC2](./AWS-EC2-Deployment.md)
 - With AWS ECS or EKS Container.
+- (Optional) Add `resolution` to `package.json` to improve build time with `copyfiles`.
+- (Optional) Declare main entry to application in `package.json` as `main: dist/server.js`

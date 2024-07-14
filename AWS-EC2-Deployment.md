@@ -27,7 +27,8 @@ AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy
 ## Create a Procfile into the source code
 
 - Create a Procfile to instruct Elastic Beanstalk on how to start the application. See [Procfile](./Procfile)
-- If the folder is zip, we must not zip the parent folder. [See Instructions](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/applications-sourcebundle.html)
+- (IMPORTANT) we must not zip the parent folder, and we can ignore `node_modules`, README.md and any non-prod files. [See Instructions](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/applications-sourcebundle.html)
+- ![Zip Content](./images/deployments/ZipDeploymentWithoutParentFolder.png)
 
 ## Better Option is to use AWS CodePipeline/CodeBuild to interac with Elastic Beanstalk
 
