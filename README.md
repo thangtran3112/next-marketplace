@@ -117,3 +117,21 @@ export const ReceiptEmailHtml = (props: ReceiptEmailProps) =>
 - With AWS ECS or EKS Container.
 - (Optional) Add `resolution` to `package.json` to improve build time with `copyfiles`.
 - (Optional) Declare main entry to application in `package.json` as `main: dist/server.js`
+- (Important) Make sure to includes all local and production domains inside `next.config.mjs`:
+
+```ts
+const nextConfig = {
+  images: {
+    domains: ["nextmarket.up.railway.app", "localhost"],
+  },
+};
+```
+
+## TODO
+
+- Moving static assets to S3 or Cloudinary
+- Option to edit images on the run, if hosting images on Cloudinary
+- If hosting images on S3, we can use AWS Recognition to allow image editting at runtime
+- Deploy this NextApp in AWS Lambda
+- Deploy this NextApp in AWS ECS
+- Deploy this NextApp in AWS EKS
