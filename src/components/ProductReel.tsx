@@ -36,6 +36,7 @@ const ProductReel = (props: ProductReelProps) => {
 
   let productsMap: (Product | null)[] = [];
   if (products && products.length) {
+    //@ts-expect-error
     productsMap = products;
   } else if (isLoading) {
     //or we can use Shadcn Skeleton instead of null boxes
