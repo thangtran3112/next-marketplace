@@ -48,10 +48,9 @@ export default function Home() {
 
         {/* List Products */}
         <ProductReel
-          query={{ sort: "desc", limit: 3 }}
-          title="abcde"
-          subtitle="test"
-          href="/product"
+          query={{ sort: "desc", limit: 4 }}
+          href="/products?sort=recent"
+          title="Brand new"
         />
       </MaxWidthWrapper>
       <section className="border-t border-gray-200 bg-gray-50">
