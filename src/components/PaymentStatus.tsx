@@ -13,19 +13,17 @@ interface PaymentStatusProps {
 /** This client-side component is securedly controlled by the server, through thank-you page */
 const PaymentStatus = ({ orderEmail, orderId, isPaid }: PaymentStatusProps) => {
   const router = useRouter();
+
   const { data } = trpc.payment.pollOrderStatus.useQuery(
     { orderId },
-    /** Keep polling until order is set with `isPaid` = true */
     {
       enabled: isPaid === false,
-      refetchInterval: (data) => (data?.isPaid ? false : 2000),
+      refetchInterval: (data) => (data?.isPaid ? false : 1000),
     }
   );
 
   useEffect(() => {
-    if (data?.isPaid) {
-      router.refresh();
-    }
+    if (data?.isPaid) router.refresh();
   }, [data?.isPaid, router]);
 
   return (
