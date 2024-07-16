@@ -1,0 +1,6 @@
+node_modules
+build
+dist
+images
+*.md
+README.md
