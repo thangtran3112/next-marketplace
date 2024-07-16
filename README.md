@@ -114,6 +114,7 @@ export const ReceiptEmailHtml = (props: ReceiptEmailProps) =>
 
 - Build the docker image and run with external port of 8080, and internal port of 3000
 - Make sure to ignore `node_modules` in .dockerignore to avoid platform issues between x86-64 and arm64
+- Railway could build the app with or without Docker. But with Docker, we need to specify environment variables that we pass from [Railway app to Docker container](https://docs.railway.app/guides/dockerfiles).
 
 ```bash
 docker build -t next-marketplace .
