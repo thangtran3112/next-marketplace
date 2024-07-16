@@ -110,6 +110,17 @@ export const ReceiptEmailHtml = (props: ReceiptEmailProps) =>
   });
 ```
 
+## Dockerize the project
+
+- Build the docker image and run with external port of 8080, and internal port of 3000
+- Make sure to ignore `node_modules` in .dockerignore to avoid platform issues between x86-64 and arm64
+
+```bash
+docker build -t next-marketplace .
+docker ps
+docker run -dp 8080:3000 next-marketplace
+```
+
 ## Deployments
 
 - [Using railway app](https://railway.app/)
