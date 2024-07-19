@@ -122,6 +122,16 @@ docker ps
 docker run -dp 8080:3000 next-marketplace
 ```
 
+```Dockerfile
+  ARG NEXT_PUBLIC_SERVER_URL
+  ARG PAYLOAD_SECRET
+  ARG MONGODB_URL
+  ARG TRANSACTION_FEE_PRICE_ID
+  ARG STRIPE_SECRET_KEY
+  ARG STRIPE_WEBHOOK_SECRET
+  ARG RESEND_API_KEY
+```
+
 ## Deployments
 
 - [Using railway app](https://railway.app/)
