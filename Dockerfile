@@ -1,4 +1,4 @@
-FROM node:20
+FROM --platform=linux/amd64 node:lts-alpine
 ARG NEXT_PUBLIC_SERVER_URL
 ARG PAYLOAD_SECRET
 ARG MONGODB_URL
@@ -7,8 +7,10 @@ ARG STRIPE_SECRET_KEY
 ARG STRIPE_WEBHOOK_SECRET
 ARG RESEND_API_KEY
 
-WORKDIR /usr/src/app
+WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run build
+
+EXPOSE 3000
 CMD ["npm", "start"]
