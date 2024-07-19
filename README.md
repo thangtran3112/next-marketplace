@@ -136,10 +136,14 @@ docker run -dp 8080:3000 next-marketplace
 
 - [Using railway app](https://railway.app/)
 - [With AWS CodePipeline, CodeBuild, Elastic Beanstalk and EC2](./AWS-EC2-Deployment.md)
-- With AWS ECS or EKS Container.
 - (Optional) Add `resolution` to `package.json` to improve build time with `copyfiles`.
 - (Optional) Declare main entry to application in `package.json` as `main: dist/server.js`
 - (Important) Make sure to includes all local and production domains inside `next.config.mjs`:
+
+## ECS Fargate deployment with CDK
+
+- Follow the instructions here: [ECS Fargate deployment with CDK](./cdk/README.md)
+- Dockerfile will require to have `FROM --platform=linux/amd64`
 
 ```ts
 const nextConfig = {
