@@ -1,4 +1,5 @@
 node_modules
+cdk
 build
 dist
 images

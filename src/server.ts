@@ -33,6 +33,10 @@ export type ExpressContext = inferAsyncReturnType<typeof createContext>;
 export type WebhookRequest = IncomingMessage & { rawBody: Buffer };
 
 const start = async () => {
+  //this is for ECS Fargate healthcheck
+  app.get("/healthcheck", (req, res) => {
+    res.send({ health: "ok" });
+  });
   //parsing webhook requests, and we will eventually validate the signature, to make sure the request came from Stripe
   const webhookMiddleware = bodyParser.json({
     verify: (req: WebhookRequest, _res, buffer) => {
