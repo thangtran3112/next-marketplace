@@ -3,6 +3,7 @@
 - Fullstack approach, with combined BE and FE, with entry through ExpressJS
 - Next14, Tailwind, [Shadcn UI](https://ui.shadcn.com/),[Lucide react](https://lucide.dev/icons/), [Zustand LocalStorage](https://docs.pmnd.rs/zustand/integrations/persisting-store-data)
 - Backend: TRPC, Payload CMS, MongoDB
+- Reference [Payload starting templates](https://github.com/payloadcms/payload/tree/main/templates)
 
 ## Getting Started
 
