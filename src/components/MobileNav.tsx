@@ -1,14 +1,21 @@
 "use client";
 
 import { PRODUCT_CATEGORIES } from "@/config";
+import { User } from "@/payload-types";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import UserAccountNav from "./UserAccountNav";
 
-const MobileNav = () => {
+interface MobileNavProps {
+  user: User | null;
+}
+
+const MobileNav = (props: MobileNavProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const user = props.user;
 
   const pathname = usePathname();
 
@@ -102,24 +109,42 @@ const MobileNav = () => {
             </div>
 
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-              <div className="flow-root">
-                <Link
-                  onClick={() => closeOnCurrent("/sign-in")}
-                  href="/sign-in"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Sign in
-                </Link>
-              </div>
-              <div className="flow-root">
-                <Link
-                  onClick={() => closeOnCurrent("/sign-up")}
-                  href="/sign-up"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Sign up
-                </Link>
-              </div>
+              {!user && (
+                //  Only show Sign-In and Sign-Up when not logged in
+                <>
+                  <div className="flow-root">
+                    <Link
+                      onClick={() => closeOnCurrent("/sign-in")}
+                      href="/sign-in"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Sign in
+                    </Link>
+                  </div>
+                  <div className="flow-root">
+                    <Link
+                      onClick={() => closeOnCurrent("/sign-up")}
+                      href="/sign-up"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Sign up
+                    </Link>
+                  </div>
+                </>
+              )}
+
+              {/* Showing User Previous Orders - Not yet implemented */}
+              {user && (
+                <div className="flow-root">
+                  <Link
+                    onClick={() => closeOnCurrent("/orders")}
+                    href="/orders"
+                    className="-m-2 block p-2 font-medium text-gray-900"
+                  >
+                    Orders
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

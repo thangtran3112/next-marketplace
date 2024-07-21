@@ -193,3 +193,5 @@ npm i @payloadcms/plugin-cloud-storage @aws-sdk/client-s3 @aws-sdk/lib-storage a
 
 - Deploy this NextApp in AWS Lambda (may not be possible)
 - Deploy this NextApp in AWS EKS
+- Fix Email Receipt
+- Fix Mobile View Cart
