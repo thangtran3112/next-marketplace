@@ -147,8 +147,10 @@ docker run -dp 8080:3000 next-marketplace
 - Dockerfile will require to have `FROM --platform=linux/amd64`
 - Although this is working. The cost for Application Load Balancer would be around 30$ a month
 - The cost for Fargate is around 3 times more than EC2 instance.
-- Using a EC2 instance saving plan, and deploy ECS Cluster with EC2 launch type. And use a public ip address would save lots of cost over using ALB
+- Using a EC2 instance saving plan, and deploy ECS Cluster with EC2 launch type. And use an Elastic Ip Address would save lots of cost over using ALB.
 - Example of creating [ECS deployment with EC2 launch type](https://github.com/aws-samples/aws-cdk-examples/tree/main/typescript/ecs/ecs-service-with-advanced-alb-config)
+- [Routing from Route53 to EC2 instance](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-ec2-instance.html)
+- Cheapest option: CodeBuild -> ElasticBeakstalk -> EC2 / ECS (with EC2 launch type)
 
 ```ts
 const nextConfig = {
