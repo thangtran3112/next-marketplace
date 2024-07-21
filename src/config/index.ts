@@ -1,43 +1,22 @@
 export const PRODUCT_CATEGORIES = [
   {
-    label: "UI Kits",
-    value: "ui_kits" as const,
+    label: "Food Recipes",
+    value: "food-recipes" as const,
     featured: [
       {
-        name: "Editor picks",
-        href: `/products?category=ui_kits`,
-        imageSrc: "/nav/ui-kits/mixed.jpg",
+        name: "Favorite Recipes",
+        href: `/products?category=food-recipes`,
+        imageSrc: "/nav/food-recipes/picks.jpg",
       },
       {
         name: "New Arrivals",
-        href: "/products?category=ui_kits&sort=desc",
-        imageSrc: "/nav/ui-kits/blue.jpg",
+        href: "/products?category=food-recipes&sort=desc",
+        imageSrc: "/nav/food-recipes/new.jpg",
       },
       {
-        name: "Bestsellers",
-        href: "/products?category=ui_kits",
-        imageSrc: "/nav/ui-kits/purple.jpg",
-      },
-    ],
-  },
-  {
-    label: "Icons",
-    value: "icons" as const,
-    featured: [
-      {
-        name: "Favorite Icon Picks",
-        href: `/products?category=icons`,
-        imageSrc: "/nav/icons/picks.jpg",
-      },
-      {
-        name: "New Arrivals",
-        href: "/products?category=icons&sort=desc",
-        imageSrc: "/nav/icons/new.jpg",
-      },
-      {
-        name: "Bestselling Icons",
-        href: "/products?category=icons",
-        imageSrc: "/nav/icons/bestsellers.jpg",
+        name: "Bestselling Recipes",
+        href: "/products?category=food-recipes",
+        imageSrc: "/nav/food-recipes/bestsellers.jpg",
       },
     ],
   },
