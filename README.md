@@ -154,7 +154,7 @@ const nextConfig = {
 
 ## ECS Fargate deployment with CDK (tested and working)
 
-- Follow the instructions here: [ECS Fargate deployment with CDK](./cdk/README.md)
+- Follow the instructions here: [ECS Fargate deployment with CDK](./cdk-fargate/README.md)
 - Dockerfile will require to have `FROM --platform=linux/amd64`
 - Although this is working. The cost for Application Load Balancer would be around 30$ a month
 - The cost for Fargate is around 3 times more than EC2 instance, approximately 200-300$ a year for 1 VCPU and 1GB memory.
