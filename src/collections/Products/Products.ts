@@ -1,6 +1,10 @@
 import { Product, User } from "../../payload-types";
 import { PRODUCT_CATEGORIES } from "../../config";
-import { ProductFilesCollection, UsersCollection } from "../../constants";
+import {
+  MediaCollection,
+  ProductFilesCollection,
+  UsersCollection,
+} from "../../constants";
 import { Access, CollectionConfig } from "payload/types";
 import {
   AfterChangeHook,
@@ -242,7 +246,7 @@ export const Products: CollectionConfig = {
         {
           name: "image",
           type: "upload",
-          relationTo: "media",
+          relationTo: MediaCollection,
           required: true, //at least one image must be uploaded
         },
       ],

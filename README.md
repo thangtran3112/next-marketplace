@@ -173,6 +173,16 @@ const nextConfig = {
 - [Using Docker with Hostinger](https://www.hostinger.com/tutorials/docker-start-a-container)
 - It is better to automate the build from Github Actions. Follow similar [Video Tutorial](https://www.youtube.com/watch?v=OeLnEB9FDpw)
 
+## S3 storage for medi and product_files collections
+
+- [Using Payload Cloud Storage Plugin](https://github.com/payloadcms/payload/blob/main/packages/plugin-cloud-storage/README.md)
+- [List of S3 endpoints per region](https://docs.aws.amazon.com/general/latest/gr/s3.html)
+- Installations:
+
+```bash
+npm i @payloadcms/plugin-cloud-storage @aws-sdk/client-s3 @aws-sdk/lib-storage aws-crt
+```
+
 ## Optimizations
 
 - (Optional) Add `resolution` to `package.json` to improve build time with `copyfiles`.
@@ -181,8 +191,5 @@ const nextConfig = {
 
 ## TODO
 
-- Moving static assets to S3 or Cloudinary
-- Option to edit images on the run, if hosting images on Cloudinary
-- If hosting images on S3, we can use AWS Recognition to allow image editting at runtime
 - Deploy this NextApp in AWS Lambda (may not be possible)
 - Deploy this NextApp in AWS EKS
