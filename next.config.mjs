@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "nextmarket.up.railway.app",
       },
+      {
+        protocol: "https",
+        hostname: "market.thangtrandev.net",
+      },
     ],
   },
 };

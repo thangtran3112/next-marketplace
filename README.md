@@ -133,24 +133,9 @@ docker run -dp 8080:3000 next-marketplace
   ARG RESEND_API_KEY
 ```
 
-## Deployments
+## Railway app Deployments
 
 - [Using railway app](https://railway.app/)
-- [With AWS CodePipeline, CodeBuild, Elastic Beanstalk and EC2](./AWS-EC2-Deployment.md)
-- (Optional) Add `resolution` to `package.json` to improve build time with `copyfiles`.
-- (Optional) Declare main entry to application in `package.json` as `main: dist/server.js`
-- (Important) Make sure to includes all local and production domains inside `next.config.mjs`:
-
-## ECS Fargate deployment with CDK
-
-- Follow the instructions here: [ECS Fargate deployment with CDK](./cdk/README.md)
-- Dockerfile will require to have `FROM --platform=linux/amd64`
-- Although this is working. The cost for Application Load Balancer would be around 30$ a month
-- The cost for Fargate is around 3 times more than EC2 instance.
-- Using a EC2 instance saving plan, and deploy ECS Cluster with EC2 launch type. And use an Elastic Ip Address would save lots of cost over using ALB.
-- Example of creating [ECS deployment with EC2 launch type](https://github.com/aws-samples/aws-cdk-examples/tree/main/typescript/ecs/ecs-service-with-advanced-alb-config)
-- [Routing from Route53 to EC2 instance](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-ec2-instance.html)
-- Cheapest option: CodeBuild -> ElasticBeakstalk -> EC2 / ECS (with EC2 launch type)
 
 ```ts
 const nextConfig = {
@@ -160,11 +145,44 @@ const nextConfig = {
 };
 ```
 
+## AWS EC2 Deployment
+
+- [With AWS CodePipeline, CodeBuild, Elastic Beanstalk and EC2](./AWS-EC2-Deployment.md)
+- Using a EC2 instance saving plan, and deploy ECS Cluster with EC2 launch type. And use an Elastic Ip Address would save lots of cost over using ALB.
+- Example of creating [ECS deployment with EC2 launch type](https://github.com/aws-samples/aws-cdk-examples/tree/main/typescript/ecs/ecs-service-with-advanced-alb-config)
+- [Routing from Route53 to EC2 instance](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-ec2-instance.html)
+
+## ECS Fargate deployment with CDK (tested and working)
+
+- Follow the instructions here: [ECS Fargate deployment with CDK](./cdk/README.md)
+- Dockerfile will require to have `FROM --platform=linux/amd64`
+- Although this is working. The cost for Application Load Balancer would be around 30$ a month
+- The cost for Fargate is around 3 times more than EC2 instance, approximately 200-300$ a year for 1 VCPU and 1GB memory.
+
+## Github Actions Deployment to AWS EC2 with Docker (Cheaper option)
+
+- Avoid costly build with AWS CodeBuild and AWS CodePipeline. Github workflow is free.
+- Using Route 53 and Cloudfront with EC2 (public IP Address) origin to distribute dynamic website traffic.
+- ![Github Actions deployment to AWS EC2 with Docker](./images/deployments/GithubToEC2Deployment.png)
+- ![Route 53 and Cloudfront to EC2](./images/deployments/Route53CloudfrontToEC2.png)
+- Cost: EC2 (t2.micro) 60-100$/year, a public IP (43$ a year), Route 53 and Cloudfront cost.
+- [Video Tutorial](https://www.youtube.com/watch?v=OeLnEB9FDpw)
+
+## Hostinger Deployment (Cheapest)
+
+- [Using Docker with Hostinger](https://www.hostinger.com/tutorials/docker-start-a-container)
+- It is better to automate the build from Github Actions. Follow similar [Video Tutorial](https://www.youtube.com/watch?v=OeLnEB9FDpw)
+
+## Optimizations
+
+- (Optional) Add `resolution` to `package.json` to improve build time with `copyfiles`.
+- (Optional) Declare main entry to application in `package.json` as `main: dist/server.js`
+- (Important) Make sure to includes all local and production domains inside `next.config.mjs`:
+
 ## TODO
 
 - Moving static assets to S3 or Cloudinary
 - Option to edit images on the run, if hosting images on Cloudinary
 - If hosting images on S3, we can use AWS Recognition to allow image editting at runtime
-- Deploy this NextApp in AWS Lambda
-- Deploy this NextApp in AWS ECS
+- Deploy this NextApp in AWS Lambda (may not be possible)
 - Deploy this NextApp in AWS EKS
