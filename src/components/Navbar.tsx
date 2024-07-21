@@ -24,7 +24,7 @@ export default async function Navbar() {
         <MaxWidthWrapper>
           <div className="border-b border-gray-200">
             <div className="h-16 flex items-center">
-              <MobileNav />
+              <MobileNav user={user} />
 
               <div className="ml-4 flex lg:ml-0">
                 <Link href="/">
@@ -37,6 +37,7 @@ export default async function Navbar() {
               </div>
 
               <div className="ml-auto flex items-center">
+                {/* Desktop View */}
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   {user ? null : (
                     <Link
@@ -52,7 +53,19 @@ export default async function Navbar() {
                   {user ? null : <ScreenReaderSpan />}
 
                   {user ? (
-                    <UserAccountNav user={user} />
+                    <>
+                      <UserAccountNav user={user} />
+                      <div className="flow-root">
+                        <Link
+                          href="/orders"
+                          className={buttonVariants({
+                            variant: "ghost",
+                          })}
+                        >
+                          Orders
+                        </Link>
+                      </div>
+                    </>
                   ) : (
                     <Link
                       href="/sign-up"
@@ -75,6 +88,12 @@ export default async function Navbar() {
                   <div className="ml-4 flow-root lg:ml-6">
                     <Cart />
                   </div>
+                </div>
+
+                {/* Mobile View */}
+                <div className="flex flex-1 items-center justify-end space-x-2 lg:hidden">
+                  {user && <UserAccountNav user={user} />}
+                  <Cart />
                 </div>
               </div>
             </div>
