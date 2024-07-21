@@ -1,3 +1,4 @@
+import { MediaCollection } from "../constants";
 import { User } from "../payload-types";
 import { Access, CollectionConfig } from "payload/types";
 
@@ -21,7 +22,7 @@ const isAdminOrHasAccessToImages =
   };
 
 export const Media: CollectionConfig = {
-  slug: "media",
+  slug: MediaCollection,
   hooks: {
     beforeChange: [
       ({ req, data }) => {

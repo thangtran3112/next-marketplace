@@ -11,3 +11,4 @@ export const UsersCollection = "users";
 export const ProductsCollection = "products";
 export const ProductFilesCollection = "product_files";
 export const OrdersCollection = "orders";
+export const MediaCollection = "media";
