@@ -145,6 +145,10 @@ docker run -dp 8080:3000 next-marketplace
 
 - Follow the instructions here: [ECS Fargate deployment with CDK](./cdk/README.md)
 - Dockerfile will require to have `FROM --platform=linux/amd64`
+- Although this is working. The cost for Application Load Balancer would be around 30$ a month
+- The cost for Fargate is around 3 times more than EC2 instance.
+- Using a EC2 instance saving plan, and deploy ECS Cluster with EC2 launch type. And use a public ip address would save lots of cost over using ALB
+- Example of creating [ECS deployment with EC2 launch type](https://github.com/aws-samples/aws-cdk-examples/tree/main/typescript/ecs/ecs-service-with-advanced-alb-config)
 
 ```ts
 const nextConfig = {
