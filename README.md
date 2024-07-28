@@ -1,8 +1,9 @@
-# Digital marketplace Techstacks:
+# Digital marketplace (NextJs Monolith):
 
-- Fullstack approach, with combined BE and FE, with entry through ExpressJS
+- Fullstack approach, monolith NextJS app with combined Express, NextJs, Payload CMS backends in only 1 server or 1 serverless instance (AWS Lambda or GCP Function).
+- tRPC (Typescript Remote Procedure Call) to ensure end-to-end type-safty.
 - Next14, Tailwind, [Shadcn UI](https://ui.shadcn.com/),[Lucide react](https://lucide.dev/icons/), [Zustand LocalStorage](https://docs.pmnd.rs/zustand/integrations/persisting-store-data)
-- Backend: TRPC, Payload CMS, MongoDB
+- Other techstacks: Payload CMS with Mongo DB abstraction.
 - Reference [Payload starting templates](https://github.com/payloadcms/payload/tree/main/templates)
 
 ## Getting Started
