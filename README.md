@@ -13,7 +13,7 @@
 
 ## Express Middleware for NextJs
 
-- We are using [Express as a middleware](https://medium.com/@obulareddyveera/next-js-invite-express-js-as-middleware-ea5e7bb494f0) for interacting with Payload.
+- We are using [Express as a middleware](https://medium.com/@obulareddyveera/next-js-invite-express-js-as-middleware-ea5e7bb494f0) for separating traffics between customer path (/) with admin dashboard path (/sell) for sellers.
 - Using `cross-env` and `nodemon` in `dev` mode will automatically restart the express server on file changes.
 - We also need to add a few custom decorators in `tsconfig.server.json` to make Express works:
 
