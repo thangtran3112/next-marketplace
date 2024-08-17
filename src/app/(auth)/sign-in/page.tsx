@@ -16,6 +16,7 @@ import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { QueryParamKeys } from "@/constants";
+import { twMerge } from "tailwind-merge";
 
 const Page = () => {
   const {
@@ -84,10 +85,13 @@ const Page = () => {
               Sign in to your {isSeller ? "seller" : ""} account
             </h1>
             <Link
-              className={buttonVariants({
-                variant: "link",
-                className: "gap-1.5",
-              })}
+              className={twMerge(
+                buttonVariants({
+                  variant: "link",
+                  className: "gap-1.5",
+                }),
+                "text-rose-400"
+              )}
               href="/sign-up"
             >
               Don&apos;t have an account?
@@ -133,7 +137,9 @@ const Page = () => {
                   )}
                 </div>
 
-                <Button>Sign in</Button>
+                <Button className={twMerge(buttonVariants(), "bg-rose-500")}>
+                  Sign in
+                </Button>
               </div>
             </form>
 

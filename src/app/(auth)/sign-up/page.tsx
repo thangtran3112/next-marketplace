@@ -16,6 +16,7 @@ import { trpc } from "@/trpc/client";
 import { toast } from "sonner";
 import { ZodError } from "zod";
 import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 const Page = () => {
   const {
@@ -60,10 +61,13 @@ const Page = () => {
             <Icons.logo className="h-20 w-20" />
             <h1 className="text-2xl font-semibold">Create an account</h1>
             <Link
-              className={buttonVariants({
-                variant: "link",
-                className: "gap-1.5",
-              })}
+              className={twMerge(
+                buttonVariants({
+                  variant: "link",
+                  className: "gap-1.5",
+                }),
+                "text-rose-400"
+              )}
               href="/sign-in"
             >
               Already have an account? Sign-in
@@ -109,7 +113,9 @@ const Page = () => {
                   )}
                 </div>
 
-                <Button>Sign up</Button>
+                <Button className={twMerge(buttonVariants(), "bg-rose-500")}>
+                  Sign up
+                </Button>
               </div>
             </form>
           </div>

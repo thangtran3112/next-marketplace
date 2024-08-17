@@ -114,7 +114,7 @@ const Page = () => {
                               <h3 className="text-sm">
                                 <Link
                                   href={`/product/${product.id}`}
-                                  className="font-medium text-gray-700 hover:text-blue-800"
+                                  className="font-medium text-gray-700 hover:text-rose-600"
                                 >
                                   {product.name}
                                 </Link>

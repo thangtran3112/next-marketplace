@@ -3,6 +3,7 @@ import ProductReel from "@/components/ProductReel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
 import Link from "next/link";
+import { twMerge } from "tailwind-merge";
 
 const perks = [
   {
@@ -32,14 +33,17 @@ export default function Home() {
         <div className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Your market place for high-quality{" "}
-            <span className="text-blue-600">digital assets</span>
+            <span className="text-rose-400">digital assets</span>
           </h1>
           <p className="mt-6 text-lg max-w-prose text-muted-foreground">
             Welcome to Next-Marketplace. Every asset on our platform is verified
             by our team to ensure our highest quality standards.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-6">
-            <Link href="/products" className={buttonVariants()}>
+            <Link
+              href="/products"
+              className={twMerge(buttonVariants(), "bg-rose-500")}
+            >
               Browse Trending
             </Link>
             <Button variant={"ghost"}>Our quality promise &rarr;</Button>
@@ -62,7 +66,7 @@ export default function Home() {
                 className="text-center md:flex md:items-start md:text-left lg:block lg:text-center"
               >
                 <div className="md:flex-shrink-0 flex justify-center">
-                  <div className="h-16 w-16 flex items-center justify-center rounded-full bg-blue-100 text-blue-900">
+                  <div className="h-16 w-16 flex items-center justify-center rounded-full bg-rose-100 text-rose-700">
                     {<perk.Icon className="w-1/3 h-1/3" />}
                   </div>
                 </div>
