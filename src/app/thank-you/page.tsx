@@ -66,7 +66,7 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
       <div>
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-32 xl:gap-x-24">
           <div className="lg:col-start-2">
-            <p className="text-sm font-medium text-rose-500">
+            <p className="text-sm font-medium text-fuchsia-500">
               Order successful
             </p>
             <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
@@ -131,7 +131,7 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
                           <a
                             href={downloadUrl}
                             download={product.name}
-                            className="text-rose-500 hover:underline underline-offset-2"
+                            className="text-fuchsia-500 hover:underline underline-offset-2"
                           >
                             Download asset
                           </a>
@@ -166,7 +166,7 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
               <div className="mt-16 border-t border-gray-200 py-6 text-right">
                 <Link
                   href="/products"
-                  className="text-sm font-medium text-rose-500 hover:text-rose-400"
+                  className="text-sm font-medium text-fuchsia-500 hover:text-fuchsia-400"
                 >
                   Continue shopping &rarr;
                 </Link>
