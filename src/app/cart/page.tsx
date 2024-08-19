@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { PRODUCT_CATEGORIES } from "@/config";
 import { useCart } from "@/hooks/use-cart";
 import { cn, formatPrice } from "@/lib/utils";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const Page = () => {
   const { items, removeItem } = useCart();
@@ -114,7 +115,7 @@ const Page = () => {
                               <h3 className="text-sm">
                                 <Link
                                   href={`/product/${product.id}`}
-                                  className="font-medium text-gray-700 hover:text-rose-600"
+                                  className="font-medium text-gray-700 hover:text-fuchsia-600"
                                 >
                                   {product.name}
                                 </Link>
@@ -206,7 +207,10 @@ const Page = () => {
               <Button
                 disabled={items.length === 0 || isLoading}
                 onClick={() => createCheckoutSession({ productIds })}
-                className="w-full"
+                className={twMerge(
+                  buttonVariants(),
+                  "bg-fuchsia-500 hover:bg-fuchsia-600 w-full"
+                )}
                 size="lg"
               >
                 {isLoading ? (

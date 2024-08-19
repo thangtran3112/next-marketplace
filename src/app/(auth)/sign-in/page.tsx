@@ -90,7 +90,7 @@ const Page = () => {
                   variant: "link",
                   className: "gap-1.5",
                 }),
-                "text-rose-400"
+                "text-fuchsia-400"
               )}
               href="/sign-up"
             >
@@ -137,7 +137,12 @@ const Page = () => {
                   )}
                 </div>
 
-                <Button className={twMerge(buttonVariants(), "bg-rose-500")}>
+                <Button
+                  className={twMerge(
+                    buttonVariants(),
+                    "bg-fuchsia-500 hover:bg-fuchsia-600"
+                  )}
+                >
                   Sign in
                 </Button>
               </div>

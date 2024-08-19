@@ -17,6 +17,7 @@ import { useCart } from "@/hooks/use-cart";
 import { ScrollArea } from "./ui/scroll-area";
 import CartItem from "./CartItem";
 import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const Cart = () => {
   const { items } = useCart();
@@ -84,9 +85,12 @@ const Cart = () => {
                 <SheetTrigger asChild>
                   <Link
                     href="/cart"
-                    className={buttonVariants({
-                      className: "w-full",
-                    })}
+                    className={twMerge(
+                      buttonVariants({
+                        className: "w-full",
+                      }),
+                      "bg-fuchsia-500 hover:bg-fuchsia-600"
+                    )}
                   >
                     Continue to Checkout
                   </Link>
