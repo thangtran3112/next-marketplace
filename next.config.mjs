@@ -28,6 +28,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverComponentsExternalPackages: ["sharp", "payload"],
+  },
 };
 
 export default nextConfig;
