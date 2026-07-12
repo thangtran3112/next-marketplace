@@ -46,6 +46,19 @@ const start = async () => {
 
   app.post("/api/webhooks/stripe", webhookMiddleware, stripeWebhookHandler);
 
+  if (process.env.NEXT_BUILD) {
+    app.listen(PORT, async () => {
+      console.log("Next.js is building for production");
+
+      // @ts-expect-error
+      await nextBuild(path.join(__dirname, "../"));
+
+      process.exit();
+    });
+
+    return;
+  }
+
   const payload = await getPayloadClient({
     initOptions: {
       express: app,
@@ -73,19 +86,6 @@ const start = async () => {
   });
 
   app.use("/cart", cartRouter);
-
-  if (process.env.NEXT_BUILD) {
-    app.listen(PORT, async () => {
-      payload.logger.info("Next.js is building for production");
-
-      // @ts-expect-error
-      await nextBuild(path.join(__dirname, "../"));
-
-      process.exit();
-    });
-
-    return;
-  }
 
   /**
    * when we receive a request to /api/trpc, we want to forward it to our trpc in NextJS

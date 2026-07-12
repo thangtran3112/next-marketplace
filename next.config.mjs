@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    minimumCacheTTL: 31536000,
     remotePatterns: [
       {
         protocol: "http",
@@ -12,23 +13,16 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "market.thangtrandev.net",
+        hostname: "market.tobytran.dev",
+      },
+      {
+        // GCP Cloud Run default domain
+        protocol: "https",
+        hostname: "*.run.app",
       },
       {
         protocol: "https",
-        hostname: `${process.env.S3_PRODUCT_FILES_BUCKET}.s3.us-west-2.amazonaws.com`,
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: `${process.env.S3_MEDIA_BUCKET}.s3.us-west-2.amazonaws.com`,
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "s3.us-west-2.amazonaws.com",
+        hostname: "storage.googleapis.com",
         port: "",
         pathname: "/**",
       },

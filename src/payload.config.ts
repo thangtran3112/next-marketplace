@@ -11,36 +11,25 @@ import { Media } from "./collections/Media";
 import { ProductFiles } from "./collections/ProductFile";
 import { Orders } from "./collections/Orders";
 import { cloudStorage } from "@payloadcms/plugin-cloud-storage";
-import { s3Adapter } from "@payloadcms/plugin-cloud-storage/s3";
+import { gcsAdapter } from "@payloadcms/plugin-cloud-storage/gcs";
 
 dotenv.config({
   path: path.resolve(__dirname, "../.env"),
 });
 
-// https://payloadcms.com/blog/plugin-cloud-storage
-const s3MediaAdapter = s3Adapter({
-  config: {
-    // endpoint: process.env.S3_MEDIA_ENDPOIN!,
-    // endpoint: process.env.S3_MEDIA_ENDPOIN!,
-    region: process.env.S3_REGION!,
-    credentials: {
-      accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
-    },
+// GCS adapter configuration for Google Cloud Storage
+const gcsMediaAdapter = gcsAdapter({
+  bucket: process.env.GCS_MEDIA_BUCKET!,
+  options: {
+    projectId: process.env.GCP_PROJECT_ID!,
   },
-  bucket: process.env.S3_MEDIA_BUCKET!,
 });
 
-const s3ProductFilesAdapter = s3Adapter({
-  config: {
-    // endpoint: process.env.S3_PRODUCT_FILES_ENDPOINT!,
-    region: process.env.S3_REGION!,
-    credentials: {
-      accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
-    },
+const gcsProductFilesAdapter = gcsAdapter({
+  bucket: process.env.GCS_PRODUCT_FILES_BUCKET!,
+  options: {
+    projectId: process.env.GCP_PROJECT_ID!,
   },
-  bucket: process.env.S3_PRODUCT_FILES_BUCKET!,
 });
 
 export default buildConfig({
@@ -75,10 +64,12 @@ export default buildConfig({
       collections: {
         // Enable cloud storage for Media collection
         media: {
-          adapter: s3MediaAdapter,
+          adapter: gcsMediaAdapter,
+          disablePayloadAccessControl: true,
         },
         product_files: {
-          adapter: s3ProductFilesAdapter,
+          adapter: gcsProductFilesAdapter,
+          disablePayloadAccessControl: true,
         },
       },
     }),
